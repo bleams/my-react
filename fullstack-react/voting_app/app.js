@@ -52,7 +52,7 @@ const Product = () => {
 //     }
 // });
 
-.render(
+ReactDom.render(
     <ProductList />,
     docment.getElementById('content')
 );
