@@ -2,12 +2,39 @@ import React from 'react';
 import {data} from './seed';
 
 class ProductList extends React.Component {
+
+    constructor(){
+      super();
+      this.state = {
+        products: []
+      }
+    }
+
+    componentDidMount () {
+      this.updateState();
+    }
+
+    updateState(){
+      const products = data.sort( (a,b) => {
+        return (b.votes - a.votes);
+      });
+      this.setState({products : products});
+    }
+
     handleProductUpVote = (productId) => {
+        data.forEach((el) => {
+          if (el.id === productId) {
+            el.votes = el.votes +1;
+            console.log(`el is ${el.id} and has ${el.votes} votes`);
+            return;
+          }
+        });
+        this.updateState();
         console.log(productId + ' was upvoted');
     };
 
     render() {
-        const products = data.map((prod) => {
+        const products = this.state.products.map((prod) => {
             return (
                 <Product
                     key={'product-' + prod.id}
@@ -22,7 +49,6 @@ class ProductList extends React.Component {
                 />
             )
         });
-        console.log(products);
         return (
             <div className="ui items">
                 {products}
@@ -60,6 +86,7 @@ class Product extends React.Component {
                         <img
                             className='ui avatar image'
                             src={this.props.submitter_avatar_url}
+                            role="presentation"
                         />
                     </div>
                 </div>
