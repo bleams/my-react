@@ -1,5 +1,5 @@
 import React from 'react';
-import {data} from './data';
+import {data} from './seed';
 
 class ProductList extends React.Component {
     handleProductUpVote = (productId) => {
@@ -67,4 +67,3 @@ class Product extends React.Component {
         );
     }
 }
-;
